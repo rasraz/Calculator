@@ -1,8 +1,6 @@
 from PyQt5 import QtWidgets,QtCore,QtGui
 import sys
 
-from numpy import equal
-
 class Window(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
