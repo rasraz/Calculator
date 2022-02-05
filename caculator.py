@@ -1,6 +1,8 @@
 from PyQt5 import QtWidgets,QtCore,QtGui
 import sys
 
+from numpy import equal
+
 class Window(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -23,12 +25,7 @@ class Window(QtWidgets.QMainWindow):
         buttonClear=QtWidgets.QPushButton('C',self)
         buttonClear.setGeometry(10,60,50,50)
         buttonClear.clicked.connect(lambda:self.calculable(buttonClear.text()))
-        buttonBracket=QtWidgets.QPushButton('()',self)
-        buttonBracket.setGeometry(65,60,50,50)
-        buttonBracket.clicked.connect(lambda:self.calculable(buttonBracket.text()))
-        buttonPercentage=QtWidgets.QPushButton('%',self)
-        buttonPercentage.setGeometry(120,60,50,50)
-        buttonPercentage.clicked.connect(lambda:self.calculable(buttonPercentage.text()))
+
         buttonDivision=QtWidgets.QPushButton('/',self)
         buttonDivision.setGeometry(175,60,50,50)
         buttonDivision.clicked.connect(lambda:self.calculable(buttonDivision.text()))
@@ -83,11 +80,15 @@ class Window(QtWidgets.QMainWindow):
 
     def calculable(self,text):
         textMonitor=self.monitor.text()
-        print(textMonitor,text)
+        if textMonitor=='hello world':textMonitor=''
+        if text=='D':textMonitor=textMonitor[:len(textMonitor)-1]
+        elif text=='C':textMonitor=''
+        else:textMonitor+=text
+        self.monitor.setText(textMonitor)
 
     def equally(self):
-        print(self.monitor.text())
-        
+        textMonitor=eval(self.monitor.text())
+        self.monitor.setText(str(textMonitor))
 
 app=QtWidgets.QApplication(sys.argv)
 win=Window()
